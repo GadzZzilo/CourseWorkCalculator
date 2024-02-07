@@ -34,18 +34,22 @@ async def broach_data_invalid(message: types.Message):
 
 async def broach_data_valid(message: types.Message, state: FSMContext):
     """Checks the validity of the data and saves it"""
-    variants = ['6x23x26x6x0.3x0.2x0.2',    '6x26x30x6x0.3x0.2x0.2',     '6x28x32x7x0.3x0.2x0.2',     '8x32x36x6x0.4x0.2x0.3',
-                 '8x36x40x7x0.4x0.2x0.3',    '8x42x46x8x0.4x0.2x0.3',     '8x46x50x9x0.4x0.2x0.3',     '8x52x58x10x0.5x0.3x0.5',
-                 '8x56x62x10x0.5x0.3x0.5',   '8x62x68x12x0.5x0.3x0.5',    '10x72x78x12x0.5x0.3x0.5',   '10x82x88x12x0.5x0.3x0.5',
-                 '10x92x98x14x0.5x0.3x0.5',  '10x102x108x16x0.5x0.3x0.5', '10x112x120x18x0.5x0.3x0.5', '6x11x14x3x0.3x0.2x0.2',
-                 '6x13x16x3.5x0.3x0.2x0.2',  '6x16x20x4x0.3x0.2x0.2',     '6x18x22x5x0.3x0.2x0.2',     '6x21x25x5x0.3x0.2x0.2',
-                 '6x23x28x6x0.3x0.2x0.2',    '6x26x32x6x0.4x0.2x0.3',     '6x28x34x7x0.4x0.2x0.3',     '8x32x38x6x0.4x0.2x0.3',
-                 '8x36x42x7x0.4x0.2x0.3',    '8x42x48x8x0.4x0.2x0.3',     '8x46x54x9x0.5x0.3x0.5',     '8x52x60x10x0.5x0.3x0.5',
-                 '8x56x65x10x0.5x0.3x0.5',   '8x62x72x12x0.5x0.3x0.5',    '10x72x82x12x0.5x0.3x0.5',   '10x82x92x12x0.5x0.3x0.5',
-                 '10x92x102x14x0.5x0.3x0.5', '10x102x112x16x0.5x0.3x0.5', '10x112x125x18x0.5x0.3x0.5', '10x16x20x2.5x0.3x0.2x0.2',
-                 '10x18x23x3x0.3x0.2x0.2',   '10x21x26x3x0.3x0.2x0.2',    '10x23x29x4x0.3x0.2x0.2',    '10x26x32x4x0.4x0.2x0.3',
-                 '10x28x35x4x0.4x0.2x0.3',   '10x32x40x5x0.4x0.2x0.3',    '10x36x45x5x0.4x0.2x0.3',    '10x42x52x6x0.4x0.2x0.3',
-                 '10x46x56x7x0.5x0.3x0.5'
+    variants = ['6x23x26x6x0.3x0.2x0.2', '6x26x30x6x0.3x0.2x0.2', '6x28x32x7x0.3x0.2x0.2', '8x32x36x6x0.4x0.2x0.3',
+                '8x36x40x7x0.4x0.2x0.3', '8x42x46x8x0.4x0.2x0.3', '8x46x50x9x0.4x0.2x0.3', '8x52x58x10x0.5x0.3x0.5',
+                '8x56x62x10x0.5x0.3x0.5', '8x62x68x12x0.5x0.3x0.5', '10x72x78x12x0.5x0.3x0.5',
+                '10x82x88x12x0.5x0.3x0.5',
+                '10x92x98x14x0.5x0.3x0.5', '10x102x108x16x0.5x0.3x0.5', '10x112x120x18x0.5x0.3x0.5',
+                '6x11x14x3x0.3x0.2x0.2',
+                '6x13x16x3.5x0.3x0.2x0.2', '6x16x20x4x0.3x0.2x0.2', '6x18x22x5x0.3x0.2x0.2', '6x21x25x5x0.3x0.2x0.2',
+                '6x23x28x6x0.3x0.2x0.2', '6x26x32x6x0.4x0.2x0.3', '6x28x34x7x0.4x0.2x0.3', '8x32x38x6x0.4x0.2x0.3',
+                '8x36x42x7x0.4x0.2x0.3', '8x42x48x8x0.4x0.2x0.3', '8x46x54x9x0.5x0.3x0.5', '8x52x60x10x0.5x0.3x0.5',
+                '8x56x65x10x0.5x0.3x0.5', '8x62x72x12x0.5x0.3x0.5', '10x72x82x12x0.5x0.3x0.5',
+                '10x82x92x12x0.5x0.3x0.5',
+                '10x92x102x14x0.5x0.3x0.5', '10x102x112x16x0.5x0.3x0.5', '10x112x125x18x0.5x0.3x0.5',
+                '10x16x20x2.5x0.3x0.2x0.2',
+                '10x18x23x3x0.3x0.2x0.2', '10x21x26x3x0.3x0.2x0.2', '10x23x29x4x0.3x0.2x0.2', '10x26x32x4x0.4x0.2x0.3',
+                '10x28x35x4x0.4x0.2x0.3', '10x32x40x5x0.4x0.2x0.3', '10x36x45x5x0.4x0.2x0.3', '10x42x52x6x0.4x0.2x0.3',
+                '10x46x56x7x0.5x0.3x0.5'
                 ]
 
     values = [el.replace(",", ".") for el in message.text.split("/")]
@@ -122,7 +126,6 @@ async def broach_callback(callback: types.CallbackQuery, state: FSMContext):
 
         await callback.message.edit_reply_markup(reply_markup=None)
         await state.finish()
-        print(data)
 
 
 def register_broach_handlers(dp: Dispatcher):

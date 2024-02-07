@@ -1,3 +1,4 @@
+import datetime
 import os
 import random
 from string import ascii_lowercase, ascii_uppercase
@@ -27,12 +28,18 @@ def get_quickpay_form(label: str, service_type: str):
     load_dotenv('.env')
     wallet = os.getenv("WALLET")
 
+    def get_price(price_type: str) -> int:
+        if price_type == "cutter":
+            return 1400 + (datetime.datetime.today().month - 2) * 100
+        else:
+            return 1500 + (datetime.datetime.today().month - 2) * 100
+
     quickpay = Quickpay(
         receiver=wallet,
         quickpay_form="shop",
         targets="Оплата расчета",
         paymentType="SB",
-        sum=300 if service_type == 'cutter' else 400,
+        sum=get_price(price_type=service_type),
         label=label
     )
     return quickpay

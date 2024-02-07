@@ -22,7 +22,7 @@ def get_ikb(callback_data: list, label: str, service_type: str) -> InlineKeyboar
                                callback_data=callback_data[0],
                                )
     ib2 = InlineKeyboardButton("❌ Переписать значения", callback_data=callback_data[1])
-    ib3 = InlineKeyboardButton(f"💵 Оплатить {300 if service_type == 'cutter' else 400} руб",
+    ib3 = InlineKeyboardButton(f"💵 Оплатить {3 if service_type == 'cutter' else 400} руб",
                                url=get_quickpay_form(label, service_type).redirected_url
                                )
 

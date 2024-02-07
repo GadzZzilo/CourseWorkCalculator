@@ -144,11 +144,14 @@ async def cutter_callback(callback: types.CallbackQuery, state: FSMContext):
         if callback.data == "cutter success paid" and check_payment(data["label"]):
             await callback.answer("Приступил к расчетам. Ожидайте...", show_alert=True)
             start_calculate(data)
-            file_name = f"./{'solved_cutter_circle' if 'Круглый' in data['object_type'] else 'solved_cutter_prismatic'}_{callback.message.chat.id}.txt"
-            with open(file_name, "rb") as file:
-                await callback.message.reply_document(file, "rb")
 
-            os.remove(file_name)
+            file_name = f"./{'solved_cutter_circle' if 'Круглый' in data['object_type'] else 'solved_cutter_prismatic'}_{callback.message.chat.id}"
+
+            with open(file_name + ".txt", "rb") as file:
+                await callback.message.reply_document(open(file_name + ".docx", "rb"), "rb")
+
+            os.remove(file_name + ".txt")
+            os.remove(file_name + ".docx")
         else:
             await callback.answer("Расчет отменен ❌", show_alert=True)
         await callback.message.edit_reply_markup(reply_markup=None)
