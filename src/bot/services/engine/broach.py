@@ -94,12 +94,12 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                f' ― Тяговая сила станка Рс = {self.Pc} Н\n' + f' ― Наибольший рабочий ход ползуна {self.move_polzyn} мм\n\n' +
                                f' ― Протяжку делаем {greater}.\n' +
                                f' ― Материал рабочей части ― быстрорежущая cталь Р6М5, материал хвостовика ― '
-                               f'легированная cталь 40Х\n' + 
+                               f'легированная cталь 40Х\n' +
                                f' ― Длина протягивания L ≥ 30 мм, центрирование шлицевого соединения, в котором будет '
-                               f'работать обрабатываемая деталь, осуществляется\n' + 
+                               f'работать обрабатываемая деталь, осуществляется\n' +
                                f'   по внутреннему диаметру, поэтому назначаем следующий порядок расположения зубьев '
-                               f'протяжки по длине: фасочные, шлицевые, круглые (ФШК)\n\n') 
-        
+                               f'протяжки по длине: фасочные, шлицевые, круглые (ФШК)\n\n')
+
     def __part_1(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -115,24 +115,24 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                f'{self.__current_part})Припуск под протягивание внутреннего диаметра равен:\n' +
                                f'\tΔ = 0.005 * d + (0.1 - 0.2) * √L = ({delta_1} - {delta_2}) мм\n' +
                                f'\tПринимаем Δ = {self.delta} мм\n')
-        
+
     def __part_2(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
         """
         self.D01 = self.Dп = self.D1 = round(self.d - self.delta, 2)
         self.__output_data_add(f'{self.__current_part})Диаметры отверстий в заготовке D01, переднего направления в '
-                               f'заготовке Dп и первого режущего зуба D1 равны:\n' + 
+                               f'заготовке Dп и первого режущего зуба D1 равны:\n' +
                                f'\tD01 = Dп = D1 = d - {self.delta} = {self.D01} мм\n')
-        
+
     def __part_3(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
         """
         self.L1 = 280 + self.L
         self.__output_data_add(f'\n\t\tПроектирование гладких частей протяжки\n' +
-                               f'{self.__current_part})Расстояние до первого зуба протяжки:\n\tL1 = 280 + L = {self.L1} мм\n') 
-        
+                               f'{self.__current_part})Расстояние до первого зуба протяжки:\n\tL1 = 280 + L = {self.L1} мм\n')
+
     def __part_4(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -162,7 +162,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                add_str +
                                f'Принимаем диаметр хвостовика d1 = {self.d1} мм\n' +
                                f'Тогда по табл.1 площадь хвостовика, определяющая его прочность Fх = {self.Fx} мм²\n')
-        
+
     def __part_5(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -197,7 +197,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         text = 'так как одиночная схема' if self.K == 4 else 'так как групповая схема'
         self.__output_data_add(f'{self.__current_part})Коэффициент заполнения стружечной канавки:\n' +
                                f'\tК = {self.K}, {text}. (табл.3)\n')
-        
+
     def __part_8(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -206,11 +206,11 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         if self.is_group:
             self.Sgk = round(self.Fk / (self.K * self.L), 3)
             self.__output_data_add(f'\tSгk= Fk / (K * L) = {self.Fk} / ({self.K} * {self.L}) = {self.Sgk} мм/группа\n')
-            
+
         else:
             self.Szk = round(self.Fk / (self.K * self.L), 3)
             self.__output_data_add(f'\tSzk= Fk / (K * L) = {self.Fk} / ({self.K} * {self.L}) = {self.Szk} мм/зуб\n')
-        
+
     def __part_9(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -219,7 +219,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.Px = round(self.Fx * self.sigma_x, 1)
         self.__output_data_add(f'{self.__current_part})Наибольшее усилие, допустимое хвостовиком, равно:\n' +
                                f'\tPx = Fx * σx = {self.Fx} * {self.sigma_x} = {self.Px} H\n')
-    
+
     def __part_10(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -256,7 +256,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         Формула зависит от того принята ли групповая схема или одиночная схема
         """
         self.x = 0.8   # Константное значение для степени подачи
-        self.Cp = 2170 # Значение должно зависеть от типа стали self.steel 
+        self.Cp = 2170 # Значение должно зависеть от типа стали self.steel
         self.n = 2     # Количество зубьев в группе в фасочной части протяжки - является константой
         self.Sg = self.Sgp = self.Szp = self.Sz = 0
         if self.is_group:
@@ -266,7 +266,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                    f'\tПринимаем для фасочной части количество зубьев в группе n = {self.n}\n' +
                                    f'\tSгp = (Pp * n / (Bрф * Ср * Zmax))^(1/x) = ({self.Pp} * {self.n} / ({self.Bрф} * {self.Cp} * {self.Zmax}))^(1/{self.x}) = {self.Sgp} мм/группа\n' +
                                    f'\tПодача, допустимая по размещению стружки в канавке, расчитанная для групповой схемы, Sг = {self.Sgk} мм/группа\n' +
-                                   f'\tРасчетное значение Sг = {self.Sg}\n' + 
+                                   f'\tРасчетное значение Sг = {self.Sg}\n' +
                                    f'\tОкругляем до сотых, принимаем Sг = {round(self.Sg, 2)} мм/группа\n')
             self.Sg = round(self.Sg, 2)
         else:
@@ -278,7 +278,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                        f'\tСделаем перерасчет с 5 по 13 пункт\n\n' +
                                        f'\t _________________________________________________________________ \n' +
                                        f'\t|                                                                 |\n' +
-                                       f'\t|               Перерасчет данных для фасочной части              |\n' + 
+                                       f'\t|               Перерасчет данных для фасочной части              |\n' +
                                        f'\t|_________________________________________________________________|\n')
                 self.is_group = True
                 for current in range(5, 13 + 1):
@@ -301,7 +301,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.delta_ф = round(self.dmin + 2 * (self.f + self.Tf) - self.D01, 2)
         self.__output_data_add(f'{self.__current_part})По формуле (1.21) припуск, снимаемый фасочными зубьями, равен:\n' +
                                f'\t∆ф = dmin + 2(f + Tf) - D01 = {self.dmin} + 2({self.f} + {self.Tf}) - {self.D01} = {self.delta_ф} мм\n')
-        
+
     def __part_15(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -325,7 +325,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.Dфп = round(self.dmin + 2 * (self.f + self.Tf), 1)
         self.__output_data_add(f'{self.__current_part})Диаметр последнего фасочного зуба равен:\n' +
                                f'\tDфп = dmin + 2(f + Tf) = {self.dmin} + 2({self.f} + {self.Tf}) = {self.Dфп} мм\n')
-        
+
     def __part_17(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -349,7 +349,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                     self.__output_data_add(f'Dфч{current} = {self.Dф_array[current - 1]}\t')
                     self.Zф += 1
                     entered = True
-                else:                    
+                else:
                     for i in range(self.n):
                         if i != self.n - 1:
                             self.Dф_array.append(round(new_d, 2))
@@ -359,7 +359,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                         current += 1
                 self.__output_data_add('\n')
             if entered:
-                self.Zф -= 1    
+                self.Zф -= 1
         else:
             self.__output_data_add(f'\tDфч1 = {self.Dф_array[0]}\t')
             for i in range(2, self.Zф + 1):
@@ -376,7 +376,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.lраб_ф = round(self.tp * (self.Zф - 1))
         self.__output_data_add(f'{self.__current_part})Длина фасочной части протяжки:\n' +
                                f'\tlраб.ф = tp(Zф - 1) = {self.tp}({self.Zф} - 1) = {self.lраб_ф} мм\n')
-        
+
     def __part_19(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -391,7 +391,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.P = round((round(m.pi, 2) * self.d) / self.nz - self.b - 2 * self.delta_h - 2 * self.f - 2 * self.Tf, 1)
         self.__output_data_add(f'{self.__current_part})Расчет размеров фасочных зубьев по формулам (1.31) – (1.35):\n' +
                                f'\tB1 = 45ͦ  - arcsin(bш / d) = 45ͦ  - arcsin({self.b} / {self.d}) = {self.beta_1}ͦ \n'+\
-                               f'\tN = 0.5 * sqrt((d + 2f)² - bш²) = 0.5 * sqrt(({self.d} + 2 * {self.f})^2 - {self.b}^2) = {self.N} мм\n'+
+                               f'\tN = 0.5 * √((d + 2f)² - bш²) = 0.5 * √(({self.d} + 2 * {self.f})² - {self.b}²) = {self.N} мм\n'+
                                f'\tM = N * sinB1 + 0.5bш * cosB1 = {self.M} мм\n'+\
                                f'\tB = 360 / nz + 2B1 = 360 / {self.nz} + 2 * {self.beta_1} = {self.beta}ͦ \n'+\
                                f'\tP = pi * d / nz - bш - 2∆h - 2f - 2Tf = 3.14 * {self.d} / {self.nz} - {self.b} - 2 * {self.delta_h} - 2 * {self.f} - 2 * {self.Tf} = {self.P} мм\n')
@@ -414,7 +414,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.__output_data_add(f'\n\t\tРасчет шлицевой части протяжки\n' +
                                f'{self.__current_part})Наибольшая ширина слоя, срезаемого шлицевыми зубьями протяжки структуры ФШК, равна:\n' +
                                f'\tВрш = bш * nz = {self.b} * {self.nz} = {self.Bрш} мм\n')
-        
+
     def __part_21(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -429,7 +429,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                    f'\tПринимаем для шлицевой части количество зубьев в группе n = {self.n}\n' +
                                    f'\tSгp = (Pp * n / (Bрш * Ср * Zmax))^(1/x) = ({self.Pp} * {self.n} / ({self.Bрш} * {self.Cp} * {self.Zmax}))^(1/{self.x}) = {self.Sgp} мм/группа\n' +
                                    f'\tПодача, допустимая по размещению стружки в канавке, расчитанная для групповой схемы, Sг = {self.Sgk} мм/группа\n' +
-                                   f'\tРасчетное значение Sг = {self.Sg}\n' + 
+                                   f'\tРасчетное значение Sг = {self.Sg}\n' +
                                    f'\tОкругляем до сотых, принимаем Sг = {round(self.Sg, 2)} мм/группа\n')
             self.Sg = round(self.Sg, 2)
         else:
@@ -441,7 +441,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                        f'\tСделаем перерасчет с 5 по 12 и с {self.__current_part - 1} по {self.__current_part} пункт\n\n' +
                                        f'\t _________________________________________________________________ \n' +
                                        f'\t|                                                                 |\n' +
-                                       f'\t|               Перерасчет данных для шлицевой части              |\n' + 
+                                       f'\t|               Перерасчет данных для шлицевой части              |\n' +
                                        f'\t|_________________________________________________________________|\n')
                 self.is_group = True
                 for current in [5, 6, 7, 8, 9, 10, 11, 20, 21]:
@@ -463,7 +463,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.Dш1 = self.d + 2 * self.f
         self.__output_data_add(f'{self.__current_part})Диаметр первого шлицевого зуба равен:\n'+
                                f'\tDш1 = d + 2f = {self.d} + 2 * {self.f} = {self.Dш1} мм\n')
-        
+
     def __part_23(self) -> None:
         """
         Независимо от схемы протяжки формулы остаются одинаковыми
@@ -473,7 +473,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.Dшпч = self.Dшк = round(self.Dmax - 0.3 * self.TD, 2)
         self.__output_data_add(f'{self.__current_part})Диаметр последнего чистового режущего шлицевого зуба равен диаметру калибрующих шлицевых зубьев и по выражению, аналогичному (1.27), равен:\n' +
                                f'\tDшпч = Dшк = Dmax - 0.3 * TD = {self.Dmax} - 0.3 * {self.TD} = {self.Dшпч} мм\n')
-    
+
     def __part_24(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -486,7 +486,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             self.delta_шч = round(self.Dшпч - self.Dш1 - 2 * self.Sz, 3)
             self.__output_data_add(f'{self.__current_part})Припуск, снимаемый черновыми шлицевыми зубьями, равен:\n' +
                                f'\tΔшч = Dшпч - Dш1 - 2Sz = {self.Dшпч} - {self.Dш1} - 2 * {self.Sz} = {self.delta_шч} мм\n')
-            
+
     def __part_25(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -525,7 +525,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                 if group == self.groups_count and self.Zшч % 2 == 0:
                     self.Dш_array.append(round(new_d - 0.02, 2))
                     self.__output_data_add(f'Dшч{current} = {self.Dш_array[current - 1]}\t')
-                else:                    
+                else:
                     for i in range(self.n):
                         if i != self.n - 1:
                             self.Dш_array.append(round(new_d, 2))
@@ -550,7 +550,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.delta_ш_перех = round(self.Dшпч - self.Dш_array[self.Zшч - 1], 2)
         self.__output_data_add(f'{self.__current_part})Уточняем диаметральный припуск на переходные зубья:\n' +
                                f'\tΔш.перех = Dшпч - Dш{self.Zшч} = {self.Dшпч} - {self.Dш_array[self.Zшч - 1]} = {self.delta_ш_перех} мм\n')
-        
+
     def __part_28(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -603,7 +603,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             self.Zшк = 2
             self.tk = 0.75 * self.tp
             self.__output_data_add(f'{self.__current_part}) Калибрующие зубья:\n')
-            self.__output_data_add(f"\tПо таблице 7 число калибрующих зубьев Zшк = {self.Zшк}\n" + 
+            self.__output_data_add(f"\tПо таблице 7 число калибрующих зубьев Zшк = {self.Zшк}\n" +
                                    f"\tШаг между зубьями tк= 0,75tр = 0,75 * {self.tp} = {self.tk} мм\n" +
                                    f"\tПо таблице 2 выбираем hk = {self.hk} мм. Диаметры калибрующих зубьев равны:\n")
             self.Dш_array.append(self.Dшпч);
@@ -645,7 +645,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.__output_data_add(f'\n\t\tРасчет круглой части протяжки\n' +
                                f'{self.__current_part})Наибольшая ширина слоя, срезаемого круглыми зубьями протяжки структуры ФШК, равна:\n' +
                                f'\tBрк = pi * d - (bш + 2f + 2Tf) * nz = 3.14 * {self.d} - ({self.b} + 2 * {self.f} + 2 * {self.Tf}) * {self.nz} = {self.Bрк} мм\n')
-        
+
     def __part_32(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -660,7 +660,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                    f'\tПринимаем для круглой части количество зубьев в группе n = {self.n}\n' +
                                    f'\tSгp = (Pp * n / (Bрк * Ср * Zmax))^(1/x) = ({self.Pp} * {self.n} / ({self.Bрк} * {self.Cp} * {self.Zmax}))^(1/{self.x}) = {self.Sgp} мм/группа\n' +
                                    f'\tПодача, допустимая по размещению стружки в канавке, расчитанная для групповой схемы, Sг = {self.Sgk} мм/группа\n' +
-                                   f'\tРасчетное значение Sг = {self.Sg}\n' + 
+                                   f'\tРасчетное значение Sг = {self.Sg}\n' +
                                    f'\tОкругляем до сотых, принимаем Sг = {round(self.Sg, 2)} мм/группа\n')
             self.Sg = round(self.Sg, 2)
         else:
@@ -672,7 +672,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                                        f'\tСделаем перерасчет с 5 по 12 и с {self.__current_part - 1} по {self.__current_part} пункт\n\n' +
                                        f'\t _________________________________________________________________ \n' +
                                        f'\t|                                                                 |\n' +
-                                       f'\t|               Перерасчет данных для круглой части               |\n' + 
+                                       f'\t|               Перерасчет данных для круглой части               |\n' +
                                        f'\t|_________________________________________________________________|\n')
                 self.is_group = True
                 for current in [5, 6, 7, 8, 9, 10, 11, 31, 32]:
@@ -727,7 +727,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.__output_data_add(f'\tПри определении числа черновых режущих круглых зубьев\n' +
                                f'\tрезультат расчета округляется до целого числа в меньшую сторону.\n' +
                                f'\tПринимаем Zкч = {self.Zкч} зубьев\n')
-        
+
     def __part_36(self) -> None:
         """
         Формула зависит от того принята ли групповая схема или одиночная схема
@@ -748,7 +748,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                 if group == self.groups_count and self.Zкч % 2 == 0:
                     self.Dк_array.append(round(new_d - 0.02, 2))
                     self.__output_data_add(f'Dкч{current} = {self.Dк_array[current - 1]}\t')
-                else:                    
+                else:
                     for i in range(self.n):
                         if i != self.n - 1:
                             self.Dк_array.append(round(new_d, 2))
@@ -773,7 +773,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         self.delta_к_перех = round(self.Dкпч - self.Dк_array[self.Zкч - 1], 2)
         self.__output_data_add(f"{self.__current_part})Уточняем диаметральный припуск на переходные зубья:\n" +
                                f"\tΔк.перех = Dкпч - Dк{self.Zкч} = {self.Dкпч} - {self.Dк_array[self.Zкч - 1]} = {self.delta_к_перех} мм\n")
-        
+
     def __part_38(self) -> None:
         if self.is_group:
             n_groups = 2
@@ -825,7 +825,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             self.Zkk = 2
             self.tk = 0.75 * self.tp
             self.__output_data_add(f'{self.__current_part}) Калибрующие зубья:\n')
-            self.__output_data_add(f"\tПо таблице 7 число калибрующих зубьев Zкк = {self.Zkk}\n" + 
+            self.__output_data_add(f"\tПо таблице 7 число калибрующих зубьев Zкк = {self.Zkk}\n" +
                                    f"\tШаг между зубьями tк= 0,75tр = 0,75 * {self.tp} = {self.tk} мм\n" +
                                    f"\tПо таблице 2 выбираем hk = {self.hk} мм. Диаметры калибрующих зубьев равны:\n")
             self.Dк_array.append(self.Dкпч);
@@ -836,12 +836,12 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             self.__output_data_add(f"{self.__current_part})По табл. 7 количество калибрующих зубьев Zкк=7. Диаметры калибрующих зубьев равны:\n" +
                                    f"\tDк{self.Zкч_total + 1} = ... = Dк{self.Zкч_total + self.Zkk} = {self.Dкпч} мм\n" +
                                    f"\tШаг между ними tк = 0,75tр = 0,75 * {self.tp} = {self.tk} мм. По таблице 2 выбираем hk = {self.hk} мм\n")
-    
+
     def __part_40(self) -> None:
         self.lраб_к = self.tp * (self.Zкч_total - 1) + self.tk * self.Zkk
         self.__output_data_add(f"{self.__current_part})Длина круглой части протяжки:\n" +
                                f"\tlраб.к = tp * (Zкч - 1) + tk * Zкк = {self.tp} * ({self.Zкч_total} - 1) + {self.tk} * {self.Zkk} = {self.lраб_к} мм\n")
-        
+
     def __part_41(self) -> None:
         self.__output_data_add(f"{self.__current_part})Определим необходимость стружкоразделительных канавок на режущих зубьях.\n")
         if self.is_group:
@@ -901,11 +901,11 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                        f'\tНеободимо изготовить комплект протяжек.\n')
         else:
             if self.lp_x < self.move_polzyn:
-                self.__output_data_add(f'\tДлина lp.x меньше наибольшего рабочего хода станка {self.stanok} мм\n' + 
+                self.__output_data_add(f'\tДлина lp.x меньше наибольшего рабочего хода станка {self.stanok} мм\n' +
                                        f'\tСледовательно, нет необходимости изготавливать комплект протяжек\n')
             else:
                 self.__output_data_add(f'\tДлина lp.x больше наибольшего рабочего хода ползуна станка {self.stanok},\n' +
-                                       f'\tоднако меньше чем максимальная длина протяжки Lпр.max = {self.Lпр_max} мм\n' + 
+                                       f'\tоднако меньше чем максимальная длина протяжки Lпр.max = {self.Lпр_max} мм\n' +
                                        f'\tСледовательно, можно взять другой станок, например:\n')
                 tmp_lpx = round(self.lp_x)
                 while tmp_lpx not in t.table_six['move_polzyn']:
@@ -953,7 +953,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
                 self.hk = t.table_second['hx'][i]
                 self.Fk = t.table_second['Fk'][i]
                 break
-        
+
         if self.is_group:
             if 8 > tp_1 and 8 < tp_2:
                 self.tp = 8
@@ -962,7 +962,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
 
     def __calulate_zmax_saved(self) -> float:
         return round(self.L / self.saved_tp + 1)
-    
+
 
     def __calculate_vikrushki(self, type: int) -> None:
         """
@@ -974,7 +974,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         """
         if self.is_group == False:
             return
-        
+
         self.__current_part += 1
         Dk = 80
         hb_1 = 3 * self.Sg
@@ -1002,9 +1002,9 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             j = m.ceil(j) if m.ceil(j) % 2 == 0 else m.ceil(j) + 1
             b = round(self.d * ((round(m.pi, 2) / j) - Q), 4)
             self.__output_data_add(f"Для фасочных зубьев:\n" +
-                                   f"\ta = (d + 2f)Dk / 2 - hв = ({self.d} + 2 * {self.f}) * {Dk} / 2 - {hb} = {a} мм\n" + 
+                                   f"\ta = (d + 2f)Dk / 2 - hв = ({self.d} + 2 * {self.f}) * {Dk} / 2 - {hb} = {a} мм\n" +
                                    f"Вспомогательный угол θ определяется по выражению:\n" +
-                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" + 
+                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" +
                                    f"\tТогда Q = arcos(cosQ) = {Q} радиан.\n" +
                                    f"Количество выкружек на фасочных зубьях равно:\n" +
                                    f"\tПринимаем количество выкружек на фасочных зубе j = {j} штук.\n" +
@@ -1025,9 +1025,9 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             j = m.ceil(j) if m.ceil(j) % 2 == 0 else m.ceil(j) + 1
             b = round(self.d * ((round(m.pi, 2) / j) - Q), 4)
             self.__output_data_add(f"Для шлицевых зубьев:\n" +
-                                   f"\ta = (D + Dk) / 2 - hв = ({self.D} + {Dk}) / 2 - {hb} = {a} мм\n" + 
+                                   f"\ta = (D + Dk) / 2 - hв = ({self.D} + {Dk}) / 2 - {hb} = {a} мм\n" +
                                    f"Вспомогательный угол θ определяется по выражению:\n" +
-                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" + 
+                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" +
                                    f"\tТогда Q = arcos(cosQ) = {Q} радиан.\n" +
                                    f"Количество выкружек на шлицевых зубьях равно:\n" +
                                    f"\tПринимаем количество выкружек на шлицевом зубе j = {j} штук.\n" +
@@ -1043,9 +1043,9 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
             j = self.nz
             b = round(self.d * ((round(m.pi, 2) / j) - Q), 4)
             self.__output_data_add(f"Для круглых зубьев:\n" +
-                                   f"\ta = (d + Dk) / 2 - hв = ({self.d} + {Dk}) / 2 - {hb} = {a} мм\n" + 
+                                   f"\ta = (d + Dk) / 2 - hв = ({self.d} + {Dk}) / 2 - {hb} = {a} мм\n" +
                                    f"Вспомогательный угол θ определяется по выражению:\n" +
-                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" + 
+                                   f"\tcosQ = (d² + 4a² - Dk²) / 4ad = {cosQ}\n" +
                                    f"\tТогда Q = arcos(cosQ) = {Q} радиан.\n" +
                                    f"Количество выкружек на круглых зубьях равно:\n" +
                                    f"\tПоскольку круглые зубья работают не по всему периметру окружности,\n" +
@@ -1063,7 +1063,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         """
         if self.is_group:
             return
-        
+
         self.__current_part += 1
         if type == 1:
             self.__output_data_add(f"{self.__current_part})Cтружкоразделительные канавки делают на фасочных черновых и режущих зубьях\n" +
@@ -1078,7 +1078,7 @@ class CourseWorkPartBroach(BaseCourseWorkPart):
         elif type == 3:
             self.__output_data_add(f"{self.__current_part})На круглых черновых режущих зубьях протяжки одинарного резания с целью улучшения свертывания\n" +
                                    f"стружки выполняют стружкоразделительные канавки\n")
-    
+
     def __table_nine_add_info(self) -> None:
         P = 4 if self.data['b'] >= 16 else 3 if self.data['b'] >= 14 else 4 if self.data['b'] >= 12 else 3 if self.data['b'] >= 10 else 2
         h = 0.3 if self.data['b'] <= 12 else 0.5
