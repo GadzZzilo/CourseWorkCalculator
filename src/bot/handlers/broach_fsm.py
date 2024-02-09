@@ -4,7 +4,7 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
-from bot.keyboards.user_keyboard import get_ikb, get_kb
+from bot.keyboards.user_keyboard import get_pay_ikb, get_kb
 from bot.services.engine.main import start_calculate
 from bot.services.payment import check_payment, get_label
 from bot.states.broach_states import BroachState
@@ -79,7 +79,7 @@ async def broach_data_valid(message: types.Message, state: FSMContext):
         await message.answer(
             f"Данные верны? 👀\nРазмеры протяжки:\n{''.join(output_values)}\n"
             f"Чтобы бот смог приступить к расчету, сперва необходимо оплатить 💰",
-            reply_markup=get_ikb(
+            reply_markup=get_pay_ikb(
                 [f"broach success {'paid' if check_payment(label) else 'not paid'}",
                  "broach fail"
                  ],
@@ -94,7 +94,7 @@ async def broach_not_paid_callback(callback: types.CallbackQuery, state: FSMCont
         await callback.message.answer(
             f"Данные верны? 👀\nРазмеры протяжки:\n{''.join(data['output'])}\n"
             f"Чтобы бот смог приступить к расчету, сперва необходимо оплатить  💰",
-            reply_markup=get_ikb(
+            reply_markup=get_pay_ikb(
                 [f"broach success {'paid' if check_payment(data['label']) else 'not paid'}",
                  "broach fail"
                  ],

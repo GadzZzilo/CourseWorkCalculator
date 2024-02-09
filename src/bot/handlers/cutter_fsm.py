@@ -4,7 +4,7 @@ from aiogram import types
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram.dispatcher.filters import Text
 
-from bot.keyboards.user_keyboard import get_ikb, get_kb
+from bot.keyboards.user_keyboard import get_pay_ikb, get_kb
 from bot.services.engine.main import start_calculate
 from bot.services.payment import check_payment, get_label
 from bot.states.cutter_states import CutterState
@@ -21,23 +21,12 @@ async def cut_type_command(message: types.Message):
 async def common_cancel_handler(message: types.Message):
     await message.answer("Выберите услугу",
                          reply_markup=get_kb("Рассчитать резец",
-                                             "Рассчитать протяжку"
+                                             "Рассчитать протяжку",
+                                             "Чертеж резца",
+                                             "Чертеж протяжки"
                                              )
                          )
     await message.delete()
-
-
-async def cancel_handler(message: types.Message, state: FSMContext):
-    current_state = await state.get_state()
-    if current_state is None:
-        return
-
-    await state.finish()
-    await message.reply("Расчет отменен", reply_markup=get_kb(
-        "Рассчитать резец",
-        "Рассчитать протяжку"
-    )
-                        )
 
 
 async def cut_type_invalid(message: types.Message):
@@ -108,7 +97,7 @@ async def cut_data_valid(message: types.Message, state: FSMContext):
             await message.answer(
                 f"Данные верны? 👀\nЧто считаем: {data['object_type']}\nРазмеры резца:\n{''.join(output_values)}"
                 f"\nЧтобы бот смог приступить к расчету, сперва необходимо оплатить 💰",
-                reply_markup=get_ikb(
+                reply_markup=get_pay_ikb(
                     [f"cutter success {'paid' if check_payment(label) else 'not paid'}",
                      "cutter fail"
                      ],
@@ -123,7 +112,7 @@ async def cutter_not_paid_callback(callback: types.CallbackQuery, state: FSMCont
         await callback.message.answer(
             f"Данные верны? 👀\nСчитаем:\n{data['object_type']}\nРазмеры резца:\n{''.join(data['output'])}"
             f"\nЧтобы бот смог приступить к расчету, сперва необходимо оплатить  💰",
-            reply_markup=get_ikb(
+            reply_markup=get_pay_ikb(
                 [f"cutter success {'paid' if check_payment(data['label']) else 'not paid'}",
                  "cutter fail"
                  ],
@@ -148,10 +137,9 @@ async def cutter_callback(callback: types.CallbackQuery, state: FSMContext):
             file_name = f"./{'solved_cutter_circle' if 'Круглый' in data['object_type'] else 'solved_cutter_prismatic'}_{callback.message.chat.id}"
 
             with open(file_name + ".txt", "rb") as file:
-                await callback.message.reply_document(open(file_name + ".docx", "rb"), "rb")
+                await callback.message.reply_document(file, "rb")
 
             os.remove(file_name + ".txt")
-            os.remove(file_name + ".docx")
         else:
             await callback.answer("Расчет отменен ❌", show_alert=True)
         await callback.message.edit_reply_markup(reply_markup=None)
@@ -166,11 +154,6 @@ def register_cutter_handlers(dp: Dispatcher):
                                 Text(equals="Пример расчета", ignore_case=True),
                                 state=CutterState.cut_type
                                 )
-    dp.register_message_handler(
-        cancel_handler,
-        Text(equals="отменить", ignore_case=True),
-        state="*"
-    )
     dp.register_message_handler(
         cut_type_invalid,
         lambda message: message.text not in ["Круглый", "Призматический"],

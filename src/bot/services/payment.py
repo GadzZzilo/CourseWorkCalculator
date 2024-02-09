@@ -23,16 +23,18 @@ def check_payment(label: str) -> bool:
     return True if [operation.status for operation in history.operations] == ["success"] else False
 
 
-def get_quickpay_form(label: str, service_type: str):
+def get_price(price_type: str) -> int:
+    if price_type == "cutter":
+        return 1300 + (datetime.datetime.today().month - 2) * 100
+    elif price_type == "draw":
+        return 1500 + (datetime.datetime.today().month - 2) * 100
+    else:
+        return 1400 + (datetime.datetime.today().month - 2) * 100
 
+
+def get_quickpay_form(label: str, service_type: str):
     load_dotenv('.env')
     wallet = os.getenv("WALLET")
-
-    def get_price(price_type: str) -> int:
-        if price_type == "cutter":
-            return 1400 + (datetime.datetime.today().month - 2) * 100
-        else:
-            return 1500 + (datetime.datetime.today().month - 2) * 100
 
     quickpay = Quickpay(
         receiver=wallet,
