@@ -15,17 +15,35 @@ from bot.keyboards.user_keyboard import get_draw_ikb
 from bot.services.tables import cutter_options
 
 
-async def cut_drawing_option_command(message: types.Message):
-    await CutterDrawingState.cut_draw_option.set()
+async def cut_drawing_type_command(message: types.Message):
+    await CutterDrawingState.cut_draw_type.set()
     await message.answer(
-        "Выберите вариант резца из представленных (призматические резцы начинаются с 1-..., круглые начинаются с 2-...)",
-        reply_markup=get_draw_ikb(options=cutter_options)
+        "Выберите тип вашего резца из представленных",
+        reply_markup=get_draw_ikb(items=["круглый", "призматический"])
+    )
+
+
+async def cut_drawing_type_invalid_callback(callback: types.CallbackQuery):
+    await callback.message.reply(
+        "Я не знаю такого типа резца. 🤷‍♀️ Выберите вариант резца из представленных",
+        reply_markup=get_draw_ikb(
+            items=["круглый", "призматический"])
+    )
+
+
+async def cut_drawing_option_callback(callback: types.CallbackQuery, state: FSMContext):
+    await CutterDrawingState.cut_draw_option.set()
+    async with state.proxy() as data:
+        data["type"] = callback.data
+    await callback.message.answer(
+        "Выберите вариант резца из представленных",
+        reply_markup=get_draw_ikb(items=cutter_options)
     )
 
 
 async def cut_drawing_option_invalid_callback(callback: types.CallbackQuery):
     await callback.message.reply(
-        "Я не знаю такого резца. 🤷‍♀️ Выберите вариант резца из представленных (призматические резцы начинаются с 1-..., круглые начинаются с 2-...)",
+        "Я не знаю такого резца. 🤷‍♀️ Выберите вариант резца из представленных",
         reply_markup=get_draw_ikb(
             options=cutter_options)
     )
@@ -55,9 +73,13 @@ async def cutter_drawing_not_paid_callback(callback: types.CallbackQuery, state:
 async def cutter_option_callback(callback: types.CallbackQuery, state: FSMContext):
     await CutterDrawingState.cut_draw_data.set()
     async with state.proxy() as data:
-        if os.path.exists(f"bot/static/drawings_of_cutters/{callback.data}.cdw"):
+        option = f"{'1' if data['type'] == 'призматический' else '2'}-{callback.data}.cdw"
+        print(option)
+        if os.path.exists(
+                f"bot/static/drawings_of_cutters/{option}"
+        ):
             data["label"] = get_label()
-            data["option"] = callback.data + ".cdw"
+            data["option"] = option
             await callback.message.answer(
                 f"Чтобы бот смог приступить к расчету, сперва необходимо оплатить  💰",
                 reply_markup=get_pay_ikb(
@@ -97,8 +119,18 @@ async def cutter_drawing_callback(callback: types.CallbackQuery, state: FSMConte
 
 def register_cutter_drawing_handlers(dp: Dispatcher):
     """Registers cutter handlers"""
-    dp.register_message_handler(cut_drawing_option_command, Text(equals="Чертеж резца", ignore_case=True))
-    
+    dp.register_message_handler(cut_drawing_type_command, Text(equals="Чертеж резца", ignore_case=True))
+
+    dp.register_callback_query_handler(
+        cut_drawing_type_invalid_callback,
+        lambda callback: callback.data and callback.data not in ["круглый", "призматический"],
+        state=CutterDrawingState.cut_draw_type
+    )
+    dp.register_callback_query_handler(
+        cut_drawing_option_callback,
+        lambda callback: callback.data and callback.data in ["круглый", "призматический"],
+        state=CutterDrawingState.cut_draw_type
+    )
     dp.register_callback_query_handler(
         cut_drawing_option_invalid_callback,
         lambda callback: callback.data and callback.data not in cutter_options,

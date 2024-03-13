@@ -32,12 +32,12 @@ def get_pay_ikb(callback_data: list, label: str, service_type: str) -> InlineKey
     return ikb
 
 
-def get_draw_ikb(options: list) -> InlineKeyboardMarkup:
+def get_draw_ikb(items: list) -> InlineKeyboardMarkup:
     """Creates inline keyboard with buttons in a columns"""
     ikb = InlineKeyboardMarkup(row_width=5)
 
-    for option in options:
-        ib = InlineKeyboardButton(option, callback_data=option)
+    for item in items:
+        ib = InlineKeyboardButton(item, callback_data=item)
         ikb.insert(ib)
 
     ikb.add(InlineKeyboardButton("Отменить", callback_data="draw_cancel"))

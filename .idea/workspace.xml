@@ -5,17 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2562eeb0-0be0-4713-82be-1b4966d17d2c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/cancel_handlers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/cutter_drawing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/services/tables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/states/cutter_drawing_states.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/broach_fsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/broach_fsm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/common_handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/common_handlers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/cutter_fsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/cutter_fsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/broach_drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/broach_drawing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/cutter_drawing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/cutter_drawing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/keyboards/user_keyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/keyboards/user_keyboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/services/payment.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/services/payment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/services/engine/broach.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/services/engine/broach.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/services/engine/cuttercircle.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/services/engine/cuttercircle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/services/engine/cutterprismatic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/services/engine/cutterprismatic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/services/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/services/tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/states/broach_drawing_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/broach_drawing_states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/states/cutter_drawing_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/cutter_drawing_states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/static/drawings_of_broaches/7-12.cdw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/static/drawings_of_cutters/1-1.cdw" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +55,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\All_projects\telegram_bot\BotCalculatorlevlev\src\bot\static\drawings_of_broaches" />
       <recent name="D:\All_projects\telegram_bot\BotCalculatorlevlev\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
