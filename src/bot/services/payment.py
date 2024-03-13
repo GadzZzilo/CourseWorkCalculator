@@ -14,6 +14,7 @@ def get_label(length: int = 16) -> str:
     return "".join([random.choice(symbols) for _ in range(length)])
 
 
+
 def check_payment(label: str) -> bool:
     load_dotenv('.env')
     yoomoney_token = os.getenv("YOOMONEY_TOKEN")
